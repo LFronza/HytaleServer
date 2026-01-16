@@ -48,6 +48,3 @@ Edit `docker-compose.yml` to change:
   - `hytale_data/`: The actual server files (persisted).
   - `import/`: Drop files here to import them.
   - `backups/`: Destination for backup zips.
-=======
-# HytaleServer
->>>>>>> be61337079f39d2553cf88b017a2ca978531ac15
