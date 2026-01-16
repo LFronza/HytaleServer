@@ -68,7 +68,7 @@ COPY --from=builder /build/ /hytale/
 # Create directories for volumes
 RUN mkdir -p /import /backups
 
-# Ensure entrypoint is executable
-RUN chmod +x /hytale/entrypoint.sh
+# Ensure entrypoint is executable and has Linux line endings (fix CRLF)
+RUN sed -i 's/\r$//' /hytale/entrypoint.sh && chmod +x /hytale/entrypoint.sh
 
 ENTRYPOINT ["/hytale/entrypoint.sh"]
