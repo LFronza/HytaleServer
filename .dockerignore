@@ -3,5 +3,11 @@ data/
 hytale_data/
 import/
 backups/
+
+# Git files
 .git
 .gitignore
+
+# NOTE: Server/ directory is intentionally NOT ignored
+# This allows Docker to use existing server files from git if present,
+# avoiding unnecessary downloads during build
