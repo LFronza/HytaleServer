@@ -1,19 +1,16 @@
 services:
   hytale:
     build: .
-    image: hytale-server:latest
+    image: hytale-server:latest # We build our wrapper image
     container_name: hytale-server
     restart: unless-stopped
     ports:
-      - "30000-30010:30000-30010/udp"
-      - "30000-30010:30000-30010/tcp"
+      - "5520:5520/udp"
     environment:
+      - MEMORY=4G
       - BACKUP_INTERVAL=900 # 15 minutes
-      - JAVA_OPTS=-Xms2G -Xmx6G
     volumes:
-      # Data persistence: Only mount dynamic directories, otherwise we hide the baked-in assets
-      - ./data/world:/hytale/world
-      - ./data/config.json:/hytale/config.json
-      - ./data/mods:/hytale/mods
+      # Data persistence: The community image uses /data for everything
+      - ./data/hytale_data:/data
       - ./data/backups:/backups
       - ./data/import:/import
