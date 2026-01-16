@@ -43,6 +43,6 @@ RUN if [ ! -f "Server/HytaleServer.jar" ] && [ ! -f "Server/HytaleServer" ]; the
 RUN mkdir -p /import /backups
 
 # Make entrypoint executable (already copied above)
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /hytale/entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/hytale/entrypoint.sh"]
