@@ -18,30 +18,22 @@ ENV HYTALE_DOWNLOADER_URL="https://downloader.hytale.com/hytale-downloader.zip"
 ENV BACKUP_INTERVAL=900
 ENV JAVA_OPTS="-Xms2G -Xmx6G"
 
-# Build arguments
-ARG HYTALE_CREDENTIALS=""
-
 # Copy project files first (to check if server files already exist)
 COPY . /hytale/
 
 # Download and Install Server during BUILD (only if not already present)
 RUN if [ ! -f "Server/HytaleServer.jar" ] && [ ! -f "Server/HytaleServer" ]; then \
-    echo "Server files not found in repository. Checking credentials..."; \
-    if [ -n "$HYTALE_CREDENTIALS" ]; then \
-    echo "$HYTALE_CREDENTIALS" > .hytale-downloader-credentials.json; \
-    echo "Credentials provided via build-arg."; \
-    fi; \
-    echo "Downloading Hytale Downloader..."; \
+    echo "Server files not found. Starting Hytale Downloader..."; \
     curl -L -o hytale-downloader.zip "$HYTALE_DOWNLOADER_URL" && \
     unzip -qo hytale-downloader.zip && \
     if [ -f "hytale-downloader-linux-amd64" ]; then mv hytale-downloader-linux-amd64 hytale-downloader; fi && \
     chmod +x hytale-downloader && \
-    echo "Running Hytale Downloader..." && \
+    echo "Running Hytale Downloader (this might ask for authentication)..." && \
     ./hytale-downloader && \
     LATEST_ZIP=$(ls *.zip | grep -v "hytale-downloader.zip" | sort -r | head -n 1) && \
     echo "Extracting $LATEST_ZIP..." && \
     unzip -qo "$LATEST_ZIP" && \
-    rm "$LATEST_ZIP" hytale-downloader.zip .hytale-downloader-credentials.json 2>/dev/null || true; \
+    rm "$LATEST_ZIP" hytale-downloader.zip; \
     else \
     echo "Server files found in repository. Skipping download."; \
     fi
