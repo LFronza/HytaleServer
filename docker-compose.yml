@@ -13,8 +13,10 @@ services:
       - BACKUP_INTERVAL=900 # 15 minutes
       - JAVA_OPTS=-Xms2G -Xmx6G
     volumes:
-      - ./data/hytale_data:/hytale
-      - ./data/import:/import
+    volumes:
+      # Data persistence: Only mount dynamic directories, otherwise we hide the baked-in assets
+      - ./data/world:/hytale/world
+      - ./data/config.json:/hytale/config.json
+      - ./data/mods:/hytale/mods
       - ./data/backups:/backups
-      # Optional: shared downloads cache if you run multiple instances
-      # - ./data/downloads:/downloads
+      - ./data/import:/import

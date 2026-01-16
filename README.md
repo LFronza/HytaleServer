@@ -11,19 +11,26 @@ This project provides a Dockerized Hytale Server with automatic updates, local w
 - Docker & Docker Compose
 - Java 25 (Managed inside the container, but ensure your host supports running the container).
 
+## CI/CD (GitHub Actions)
+This project includes a GitHub Action to automatically build the Docker image with the server assets **baked in**.
+This means the heavy download and extraction happens on GitHub's servers, not your machine.
+
+1. Push this code to a GitHub repository.
+2. Go to the "Actions" tab to see the build running.
+3. Once finished, you can pull the image directly from GitHub Container Registry (GHCR) and start it instantly without waiting for downloads.
+
 ## Usage
+### Local Build (Traditional)
+```bash
+docker-compose up --build
+```
+This will download and build the image locally.
 
-1. **Start the Server**
-   ```bash
-   docker-compose up -d
-   ```
-
-2. **First Run Authentication**
-   The Hytale server requires an initial authentication (Device Flow). Check the logs:
-   ```bash
-   docker-compose logs -f
-   ```
-   Follow the instructions in the console to authenticate via the URL provided.
+### Using Pre-Built Image (from Git)
+Change `image: hytale-server:latest` in `docker-compose.yml` to your GHCR image URL (e.g., `ghcr.io/seu-usuario/seu-repo:main`) and run:
+```bash
+docker-compose up -d
+```
 
 3. **Restoring/Importing a World**
    - Stop the server: `docker-compose down`
