@@ -8,6 +8,10 @@ backups/
 .git
 .gitignore
 
+# Hytale credentials (NEVER include in image!)
+.hytale-downloader-credentials.json
+**/.hytale-downloader-credentials.json
+
 # NOTE: Server/ directory is intentionally NOT ignored
 # This allows Docker to use existing server files from git if present,
 # avoiding unnecessary downloads during build

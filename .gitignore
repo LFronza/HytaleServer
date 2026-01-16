@@ -4,6 +4,10 @@ hytale_data/
 import/
 backups/
 
+# Hytale credentials (extra protection)
+.hytale-downloader-credentials.json
+**/hytale-downloader-credentials.json
+
 # System
 .DS_Store
 Thumbs.db
