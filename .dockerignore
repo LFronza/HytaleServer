@@ -1,0 +1,7 @@
+# Ignore data directories from build context
+data/
+hytale_data/
+import/
+backups/
+.git
+.gitignore

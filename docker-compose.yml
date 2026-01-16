@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  hytale:
+    build: .
+    image: hytale-server:latest
+    container_name: hytale-server
+    restart: unless-stopped
+    ports:
+      - "30000-30010:30000-30010/udp"
+      - "30000-30010:30000-30010/tcp"
+    environment:
+      - BACKUP_INTERVAL=900 # 15 minutes
+      - JAVA_OPTS=-Xms2G -Xmx6G
+    volumes:
+      - ./data/hytale_data:/hytale
+      - ./data/import:/import
+      - ./data/backups:/backups
+      # Optional: shared downloads cache if you run multiple instances
+      # - ./data/downloads:/downloads

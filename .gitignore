@@ -1,0 +1,9 @@
+# Docker
+data/
+hytale_data/
+import/
+backups/
+
+# System
+.DS_Store
+Thumbs.db
